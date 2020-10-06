@@ -1,0 +1,121 @@
+package multi_client;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.regex.Pattern;
+
+public class Sender extends Thread {
+
+	//멤버변수
+	private Socket socket; // 소캣 객체 생성
+	private String userId;
+	
+	
+	// 생성자 - socket을 받음
+	public Sender(Socket socket) {
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+
+		try {
+			// 사용자한테 키보드로 값을 입력받음 > 키보드(System.in)
+			BufferedReader bf = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
+			// 보내줄 데이터 > 소캣으로 연결된 대상에게 날라간다.
+//			OutputStream os = socket.getOutputStream();
+
+			// 콘솔창에 System.out처럼 파일을 띄워주는 기능
+			// 출력스트림을 통해서 연결된 소켓에 outputStream을 통해 출력.
+			PrintWriter out = new PrintWriter(socket.getOutputStream());
+
+			// 추가: 시작할 때, 아이디를 입력받는 부분을 생성
+			//>로그인 해야 탈출  >> 채팅
+			System.out.print("닉니임:");
+			while (true) {
+				String id = bf.readLine();
+				
+				//정규 표현식으로 특수문자를 입력을 받지않도록
+				if(id == null || Pattern.compile(":").matcher(id).find()) {
+					//>id가 null이거나 특수문자 `:`가 포함된게 발견됫다면
+					System.out.println("사용할 수 없는 아이디 입니다");
+					System.out.print("닉네임:");
+					continue;//다시 처음으로
+				} else {
+					MainClient.userId = id;//아이디를 저장하고
+					break;//입력받는 부분 탈출
+					
+				}
+			}//end nick
+			out.println("ID:" + MainClient.userId);//아이디를 서버에 전송 
+			//> 나중에 아이디만 추출해서 클라이언트에 쏴주는 작업을 할꺼임
+			out.flush();
+			
+			
+			// 메세지 전송
+			while (true) {
+
+				String message = bf.readLine(); // 사용자에게 받은 메세지
+				if (message.equals("/exit")) {
+					System.out.println("종료합니다");
+					break;// 사용자에게 /exit를 입력받으면 종료
+				}
+
+				out.println(message);// out(Output)가 가리키는 방향으로 메세지를 출력해준다
+				out.flush(); // 한줄 빼내기 > 출력
+			}
+
+			// 사용 다 한거 꺼주기
+			out.close();
+			bf.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

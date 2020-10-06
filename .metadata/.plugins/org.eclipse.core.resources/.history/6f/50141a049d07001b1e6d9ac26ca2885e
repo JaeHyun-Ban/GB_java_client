@@ -1,0 +1,77 @@
+package single_server;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class Sender extends Thread {
+
+	private Socket socket;
+
+	// 생성자(socket을 받음)
+	public Sender(Socket socket) {
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+		
+		try {
+			//사용자한테 키보드로 값을 입력받음 > 키보드(System.in)
+			BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+			//보내줄 데이터 > 소캣으로 연결된 대상에게 날라간다.
+//			OutputStream os = socket.getOutputStream();
+			//콘솔창에 System.out처럼 파일을 띄워주는 기능
+			//출력스트림을 통해서 연결된 소켓에 outputStream을 통해 출력.
+			PrintWriter out = new PrintWriter(socket.getOutputStream());
+			
+			while(true) {
+				String message = bf.readLine(); //사용자에게 받은 메세지
+				if(message.equals("/exit")) {
+					break;//사용자에게  /exit를 입력받으면 종료
+				}
+				
+				 out.println(message);//pw(Output)가 가리키는 방향으로 메세지를 출력해준다
+				out.flush();
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

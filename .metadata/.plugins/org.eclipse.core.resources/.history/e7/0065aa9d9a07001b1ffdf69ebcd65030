@@ -1,0 +1,74 @@
+package single_server;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class MainServer {
+	
+	public static void main(String[] args) {
+		
+		
+		try {
+			ServerSocket serverSocket = new ServerSocket(8383);
+			
+			System.out.println("-------연결 대기-------");
+			Socket socket = serverSocket.accept();
+			
+			System.out.println("Hello World! From Single_Server");
+			
+			
+			//연결된 socket을 메세지를 수신받는 Receive로 전달
+			Receive receive = new Receive(socket);
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

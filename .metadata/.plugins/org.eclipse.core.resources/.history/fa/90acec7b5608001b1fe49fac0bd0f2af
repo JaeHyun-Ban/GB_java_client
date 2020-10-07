@@ -35,10 +35,21 @@ public class Receive extends Thread {
 					//잘려나간 길이가 2 `이며` 잘라낸 아이디가 메인에 등록된 아이디 라면
 					continue;
 				}
+				//귓속말 기능
+				String[] split2 = message.split(" ", 3);// /w, id, message 삼등분
+				if(split2.length == 3 && split2[0].equals("/w")) { // `/w` - 귓속말 이라면
+					System.out.println(message);
+				}
+				
 				
 				System.out.println(message);
 				
+				
 			}//while
+			
+			
+			
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();

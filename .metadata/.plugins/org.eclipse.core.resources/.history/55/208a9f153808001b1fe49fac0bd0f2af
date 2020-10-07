@@ -34,7 +34,7 @@ public class Sender extends Thread {
 
 			// 추가: 시작할 때, 아이디를 입력받는 부분을 생성
 			//>로그인 해야 탈출  >> 채팅
-			System.out.print("닉네임:");
+			System.out.print("닉니임:");
 			while (true) {
 				String id = bf.readLine();
 				
@@ -54,9 +54,10 @@ public class Sender extends Thread {
 			//> 나중에 아이디만 추출해서 클라이언트에 쏴주는 작업을 할꺼임
 			out.flush();
 			
+			
 			// 메세지 전송
 			while (true) {
-					
+
 				String message = bf.readLine(); // 사용자에게 받은 메세지
 				if (message.equals("/exit")) {
 					System.out.println("종료합니다");

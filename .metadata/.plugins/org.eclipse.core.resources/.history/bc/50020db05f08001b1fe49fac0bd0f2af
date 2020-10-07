@@ -16,7 +16,7 @@ public class MainClient {
 		//2. receive측에 내가 쓴 글이라면 출력을 생략하는 부분을 추가.
 		
 		try {
-			Socket socket = new Socket("192.168.104.15", 8383);
+			Socket socket = new Socket("192.168.104.27", 8383);
 			
 			
 			Sender sender = new Sender(socket);//메세지 전송 클래스 객체 생성

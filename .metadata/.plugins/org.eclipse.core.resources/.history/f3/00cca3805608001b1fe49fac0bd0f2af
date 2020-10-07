@@ -38,6 +38,7 @@ public class Receive extends Thread {
 				
 				System.out.println(message);
 				
+				
 			}//while
 			
 		} catch (IOException e) {
